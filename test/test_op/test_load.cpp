@@ -9,7 +9,9 @@
 #include "base/buffer.h"
 
 TEST(test_load, load_model_config) {
-  std::string model_path = "./tmp/test.bin";
+  // std::string model_path = "./tmp/test.bin";
+  std::string model_path = "/root/llm_workspace/KuiperLLama/tmp/test.bin";
+
   int32_t fd = open(model_path.data(), O_RDONLY);
   ASSERT_NE(fd, -1);
 
@@ -24,7 +26,9 @@ TEST(test_load, load_model_config) {
 }
 
 TEST(test_load, load_model_weight) {
-  std::string model_path = "./tmp/test.bin";
+  // std::string model_path = "./tmp/test.bin";
+  std::string model_path = "/root/llm_workspace/KuiperLLama/tmp/test.bin";
+
   int32_t fd = open(model_path.data(), O_RDONLY);
   ASSERT_NE(fd, -1);
 
@@ -47,7 +51,9 @@ TEST(test_load, load_model_weight) {
 }
 
 TEST(test_load, create_matmul) {
-  std::string model_path = "./tmp/test.bin";
+  // std::string model_path = "./tmp/test.bin";
+  std::string model_path = "/root/llm_workspace/KuiperLLama/tmp/test.bin";
+
   int32_t fd = open(model_path.data(), O_RDONLY);
   ASSERT_NE(fd, -1);
 

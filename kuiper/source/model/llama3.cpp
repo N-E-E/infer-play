@@ -129,6 +129,8 @@ base::Status LLama2Model::init(base::DeviceType device_type) {
     return read_status;
   }
   init_mem();
+
+  // 2026.1.11 read here
   if (device_type_ == base::DeviceType::kDeviceCPU) {
     kernel::sin_cos_cache_calc_cpu(config_->head_size_, config_->seq_len_,
                                    get_buffer(ModelBufferType::kSinCache).ptr<float>(),
@@ -153,6 +155,7 @@ base::Status LLama2Model::forward(const tensor::Tensor& input, const tensor::Ten
     return base::error::InternalError("Unsupported int8 quant in the cpu device");
   }
 
+  // 2026.1.11 可以从这里开始阅读各种算子的实现
   for (int32_t layer_idx = 0; layer_idx < config_->layer_num_; ++layer_idx) {
     attention_rms(layer_idx, input);
     // attention (wq wk wv @ input)
@@ -590,8 +593,10 @@ op::EmbeddingOutput LLama2Model::embedding(const std::vector<int>& tokens) const
       tensor::Tensor(base::DataType::kDataTypeInt32, static_cast<int32_t>(tokens.size()));
   LOG_IF(FATAL, !llama_layers_->embedding_layer_)
       << "The embedding layer in the llama2 model is null pointer.";
+
   STATUS_CHECK(
       llama_layers_->embedding_layer_->forward(input_tokens, input_token_num, input_embeddings));
+  // llama_layers_->embedding_layer_->forward(input_tokens, input_token_num, input_embeddings);
 
   op::EmbeddingOutput output(input_tokens, input_embeddings, input_token_num);
   return output;
