@@ -1,4 +1,5 @@
 # 此文件主要用来比对 c++/cuda 推理的正确性
+
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model = "Qwen/Qwen2.5-0.5B" # 也可以填本地模型绝对路径
